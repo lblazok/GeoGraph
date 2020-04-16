@@ -1,0 +1,25 @@
+{
+  "name": "geograph-backend",
+  "version": "1.0.0",
+  "description": "Backend for GeoGraph web app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lblazok/GeoGraph.git"
+  },
+  "author": "Lovro Blazok",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lblazok/GeoGraph/issues"
+  },
+  "homepage": "https://github.com/lblazok/GeoGraph#readme",
+  "dependencies": {
+    "@mysql/xdevapi": "8.0.19",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}

@@ -7,8 +7,8 @@ import '../style.css'
 function Landing() {
     const icon = <FontAwesomeIcon icon={faChartArea} />
     return (
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
+        <div className="jumbotron jumbotron-fluid">
+            <div className="container">
 
                 <div id='landing-header'>
                     <h1 className="display-4">{icon} GeoGraph</h1>
