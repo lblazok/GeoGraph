@@ -1,5 +1,6 @@
 const mysqlx = require('@mysql/xdevapi')
 
+
 const config = {
     password: 'admin',
     user: 'admin',
@@ -10,6 +11,19 @@ const config = {
 
 mysqlx
     .getSession(config)
-    .then((session) => {
-        return console.log(session.getTable('project'))
+    .then(session => {
+        console.log('connected')
+        return session.sql('SELECT * FROM project WHERE name = "projekt2";')
+            .execute(row => {
+                console.log(row)
+            })
+
     })
+
+    .catch(err => {
+        console.log(err)
+    })
+
+
+
+    
