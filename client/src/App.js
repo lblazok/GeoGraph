@@ -5,7 +5,7 @@ import Landing from './components/Landing'
 import Home from './components/Home'
 import CalcQ from './components/calculators/calcQ'
 import Projects from './components/projects/Projects.js'
-
+import ShowProject from './components/projects/ShowProject'
 
 function App() {
     return (
@@ -13,7 +13,8 @@ function App() {
             <Route exact path='/' component={Landing} />
             <Route path='/home' component={Home} /> 
             <Route path='/calcQ' component={CalcQ} /> 
-            <Route path='/projects' component={Projects} />
+            <Route exact path='/projects' component={Projects} />
+            <Route path='/projects/:id' component={ShowProject} />
         </Router>
     )
 }

@@ -10,7 +10,7 @@ function Home() {
             </div>
 
             <div className='col-10'>
-                <h1>Choose your poison</h1>
+                <h1>Choose module</h1>
 
                 
                 

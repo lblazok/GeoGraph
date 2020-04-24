@@ -5,13 +5,14 @@ import axios from 'axios'
 
 const Project = props => (
     <tr>
+        <td>{props.xProject.project_id}</td>
         <td>{props.xProject.name}</td>
         <td>{props.xProject.client}</td>
         <td>{props.xProject.location}</td>
         <td>{typeof(props.xProject.start_date) === 'string' && props.xProject.start_date.slice(0, 10)}</td>
         <td>{typeof(props.xProject.end_date) === 'string' && props.xProject.end_date.slice(0, 10)}</td>
         <td>
-            <Link to={'/project/'+props.xProject.project_id} className='btn btn-primary'>Details</Link>
+            <Link to={'/projects/'+props.xProject.project_id} className='btn btn-primary'>Details</Link>
         </td>
     </tr>
 )
@@ -49,6 +50,7 @@ function Projects() {
                     <table className='table table-striped'>
                         <thead>
                             <tr>
+                                <th>Project ID</th>
                                 <th>Name</th>
                                 <th>Client</th>
                                 <th>Location</th>
@@ -58,7 +60,7 @@ function Projects() {
                         </thead>
                         <tbody>
                             {project.map((x, i) => (
-                                <Project xProject={x} key={i} />
+                                <Project xProject={x}  key={i} />
                             ))}
                         </tbody>
                     </table>
