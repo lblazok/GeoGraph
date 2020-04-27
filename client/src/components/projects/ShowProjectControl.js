@@ -1,7 +1,6 @@
 import React from 'react'
 
 function ShowProjectControl(props) {
-    console.log(props)
     return (
         <div>
             <h5>Project ID: {props.project.project_id}</h5>

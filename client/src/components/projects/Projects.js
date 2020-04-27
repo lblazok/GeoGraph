@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import axios from 'axios'
 
 const Project = props => (
@@ -13,6 +13,9 @@ const Project = props => (
         <td>{typeof(props.xProject.end_date) === 'string' && props.xProject.end_date.slice(0, 10)}</td>
         <td>
             <Link to={'/projects/'+props.xProject.project_id} className='btn btn-primary'>Details</Link>
+        </td>
+        <td>
+            <button className='btn btn-danger' value={props.xProject.project_id} onClick={props.handleDelete}>Delete</button>
         </td>
     </tr>
 )
@@ -36,7 +39,13 @@ function Projects() {
 
     }, [])
 
-   
+    const history = useHistory()
+
+    const handleDelete= (event) => {
+        const id = event.target.value
+        axios.delete(`http://localhost:4000/projects/${id}`)
+        window.location.reload(false)
+    }
     
 
     return (
@@ -47,6 +56,7 @@ function Projects() {
                 </div>
                 <div className='col-9'>
                     <h3>Project List</h3>
+                    <Link to={'/projects/new'} className='btn btn-success my-2'>Add project</Link>
                     <table className='table table-striped'>
                         <thead>
                             <tr>
@@ -60,7 +70,7 @@ function Projects() {
                         </thead>
                         <tbody>
                             {project.map((x, i) => (
-                                <Project xProject={x}  key={i} />
+                                <Project xProject={x} handleDelete={handleDelete}  key={i} />
                             ))}
                         </tbody>
                     </table>
