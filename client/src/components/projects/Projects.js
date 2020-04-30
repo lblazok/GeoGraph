@@ -15,8 +15,13 @@ const Project = props => (
             <Link to={'/projects/'+props.xProject.project_id} className='btn btn-primary'>Details</Link>
         </td>
         <td>
+            <Link to={`/projects/${props.xProject.project_id}/edit`} className='btn btn-warning'>Edit</Link>
+        </td>
+        <td>
             <button className='btn btn-danger' value={props.xProject.project_id} onClick={props.handleDelete}>Delete</button>
         </td>
+
+
     </tr>
 )
 
@@ -39,12 +44,16 @@ function Projects() {
 
     }, [])
 
-    const history = useHistory()
 
     const handleDelete= (event) => {
         const id = event.target.value
         axios.delete(`http://localhost:4000/projects/${id}`)
-        window.location.reload(false)
+            .then(() => {
+                window.location.reload(false)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
     
 

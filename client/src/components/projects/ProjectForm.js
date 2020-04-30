@@ -1,6 +1,5 @@
 import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css"
-import {withRouter, Link} from 'react-router-dom'
 
 function ProjectForm(props) {
 
@@ -13,7 +12,6 @@ function ProjectForm(props) {
                 className='form-control' 
                 id='name' 
                 value={props.values.name}
-                required
                 name='name'
                 onChange={props.onChange('name')}
                 label='Project name:'
@@ -27,7 +25,6 @@ function ProjectForm(props) {
                 className='form-control' 
                 id='client' 
                 value={props.values.client}
-                required
                 name='client'
                 onChange={props.onChange('client')}
                 label='Client:'
@@ -38,7 +35,6 @@ function ProjectForm(props) {
                 <label htmlFor='location'>Location:</label>
                 <input type='text' 
                 className='form-control' 
-                required
                 id='location' 
                 value={props.values.location}
                 name='location'
@@ -53,7 +49,6 @@ function ProjectForm(props) {
                 id='start' 
                 value={props.values.start_date}
                 name='start_date'
-                required
                 onChange={props.onChange('start_date')}
                 />
             </div>
@@ -63,7 +58,6 @@ function ProjectForm(props) {
                 <input type='date' 
                 className='form-control' 
                 id='end' 
-                required
                 value={props.values.end_date}
                 name='end_date'
                 onChange={props.onChange('end_date')}

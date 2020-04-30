@@ -43,12 +43,17 @@ router.get('/projects', (req, res) => {
 //CREATE ROUTE
 router.post('/projects', (req, res) => {
     
+    let body = formatData(req.body)
+
     mysqlx.getSession(config)
         .then(session => {
             return session.getSchema('geograph').getTable('project')
                 .insert(['name', 'client', 'location', 'start_date', 'end_date'])
-                .values([req.body.name, req.body.client, req.body.location, req.body.start_date, req.body.end_date])
+                .values([body.name, body.client, body.location, body.start_date, body.end_date])
                 .execute()
+        })
+        .then(() => {
+            res.status(200).send()
         })
         .catch(err => {
             console.log(err)
@@ -96,7 +101,7 @@ router.get('/projects/:id', (req, res) => {
     }) 
     
     .then(() => {
-        res.json(myTable)
+        res.status(200).json(myTable)
        myTable = [] 
     })
     .catch(err => {
@@ -120,9 +125,12 @@ router.get('/projects/:id/edit', (req, res) => {
                     start_date: row[4],
                     end_date: row[5]
                 }
-                res.json(data)
+                res.status(200).json(data)
             })
  
+        })
+        .catch(err => {
+            console.log(err)
         })
        
 })
@@ -130,17 +138,21 @@ router.get('/projects/:id/edit', (req, res) => {
 
 //UPDATE ROUTE 
 router.put('/projects/:id', (req, res) => {
+    let body = formatData(req.body)
     db.then(session => {
         session.getSchema('geograph')
         .getTable('project')
         .update()
         .where('project_id = ' + req.params.id)
-        .set('name', req.body.name)
-        .set('client', req.body.client)
-        .set('location', req.body.location)
-        .set('start_date', req.body.start_date)
-        .set('end_date', req.body.end_date)
+        .set('name', body.name)
+        .set('client', body.client)
+        .set('location', body.location)
+        .set('start_date', body.start_date)
+        .set('end_date', body.end_date)
         .execute()
+    })
+    .then(() => {
+        res.status(200).json({msg: 'Updated'})
     })
     .catch(err => {
         console.log(err)
@@ -156,9 +168,26 @@ router.delete('/projects/:id', (req, res) => {
         .where('project_id = ' + req.params.id)
         .execute()
     }) 
+    .then(() => {
+        res.status(200).send()
+    })
     .catch(err => {
         console.log(err)
     })
 })
+
+//Data preparation for DB - NULL and date format
+const formatData = obj => {
+    let resObj = {}
+    let entries = Object.entries(obj)
+    for (const [ key, value ] of entries) {
+        resObj[key] = value.length === 0 ? null : value
+        
+       if(value.length > 0 && (key === 'start_date' || key === 'end_date')) {
+            resObj[key] = value.slice(0, 10)
+        }
+    }
+    return resObj
+}
 
 module.exports = router

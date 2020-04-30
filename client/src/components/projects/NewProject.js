@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react'
-import {Link, useHistory, withRouter, Redirect, Route} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css"
 import ProjectForm from './ProjectForm'
 import axios from 'axios'
@@ -26,10 +26,12 @@ function NewProject() {
     const handleSubmit = (e) => {
         e.preventDefault()
         axios.post('http://localhost:4000/projects', values)    
+            .then(() => {
+                redirect()
+            })
             .catch(err => {
                 console.log(err)
             })
-        redirect()
     }
 
     return (
